@@ -4,12 +4,18 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml"{% endif %}>
 <head>
-    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <title>{% block title %}{{ SITENAME }} ({{ AUTHOR }}){% endblock %}</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% if GOOGLE_VERIFICATION %}
+    <!-- verification -->
+    <meta name="google-site-verification" content="{{ GOOGLE_VERIFICATION }}" />
+    {% endif %}
 
+    <!-- Sub site meta tags -->
     {% if 'liquid_tags.notebook' in PLUGINS %}
         {% include 'includes/liquid_tags_nb_header.html' %}
     {% endif %}
@@ -159,10 +165,10 @@
         {% block content %}
         {% endblock %}
         </div>
-        {% if not HIDE_SIDEBAR or ABOUT_ME %}
+        {% if not HIDE_SIDEBAR or ABOUT_ME or AVATAR %}
         <div class="col-sm-3" id="sidebar">
             <aside>
-            {% if ABOUT_ME %}
+            {% if ABOUT_ME or AVATAR %}
                 {% include 'includes/aboutme.html' %}
             {% endif %}
             {% if not HIDE_SIDEBAR %}
